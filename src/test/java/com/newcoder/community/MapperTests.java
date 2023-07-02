@@ -20,7 +20,7 @@ import java.sql.SQLOutput;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
-
+//专门测试mapper sql
 @SpringBootTest
 @ContextConfiguration(classes = CommunityApplication.class) //以CommunityApplication为配置类启动
 public class MapperTests {
@@ -30,9 +30,9 @@ public class MapperTests {
     @Autowired(required = false)
     private DiscussPostMapper discussPostMapper;
 
-    @Test
+    @Test  //测试插入用户
     public void testSelectUser(){
-        User user = userMapper.selectById(101);
+        User user = userMapper.selectById(101000);
         System.out.println(user);
     }
     @Test
@@ -53,6 +53,12 @@ public class MapperTests {
     @Test
     public void updateUser(){
         int rows = userMapper.updatePassword(150,"11111111");
+        System.out.println(rows);
+    }
+
+    @Test
+    public void updateUserByUsername(){
+        int rows = userMapper.updateUsername(173,"zhang");
         System.out.println(rows);
     }
 

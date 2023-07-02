@@ -27,20 +27,28 @@ class CommunityApplicationTests implements ApplicationContextAware {
 	public void setApplicationContext(ApplicationContext applicationContext) throws BeansException {
 		this.applicationContext = applicationContext;  //获取了 Spring容器
 	}
-	//测试一下spring容器， 将spring容器打印一下
+	//application是spring容器，可以用于获取bean
 	@Test
 	public void testApplicationContext(){
 		System.out.println(applicationContext);
 		AlphaDao alphaDao = applicationContext.getBean(AlphaDao.class);
 		System.out.println(alphaDao.select());
+
 		AlphaController alphaController = applicationContext.getBean(AlphaController.class);
 		System.out.println(alphaController);
 	}
-	//测试一下Spring容器启动管理bean的过程
+	@Test
+	//当一个接口有两个实现类的时候，可以指定bean的名字获取bean
+	public void testGetSpecifiedBeanImpl(){
+		AlphaDao alphaDao = applicationContext.getBean("alphaDaoHibernateImpl",AlphaDao.class);
+		System.out.println(alphaDao.select());
+	}
+	//测试Spring容器启动管理bean的过程
 	@Test
 	public void testBeanManagement(){
 		AlphaService alphaService = applicationContext.getBean(AlphaService.class);
 		System.out.println(alphaService);
+		System.out.println("test process");
 	}
 	//测试一下Spring容器配置第三方bean的过程
 	@Test

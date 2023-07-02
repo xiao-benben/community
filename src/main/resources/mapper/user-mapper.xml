@@ -4,7 +4,7 @@
         "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <!--namespace写对应的mapper全限定类名 -->
 <mapper namespace="com.newcoder.community.dao.UserMapper">
-    <!--查询字段比较耦合，我们提取出来 -->
+    <!--查询字段比较耦合，我们提取出来   -->
     <sql id="insertFields">
         username, password, salt, email, type, status, activation_code, header_url, create_time
     </sql>
@@ -36,7 +36,7 @@
         where email=#{email}
     </select>
 
-    <!--像自定义的entity中的参数，我们需要声明 -->
+    <!--像自定义的entity中的参数，我们需要用parameterType声明类型 -->
     <!--keyProperty="id" mysql本身底层id是递增的，User中是没有这个数据的
      我们设置这个就可以将递增的id填入User的id字段-->
     <insert id="insertUser" parameterType="User" keyProperty="id">
@@ -59,6 +59,12 @@
     <update id="updatePassword" >
         update user
         set password= #{password}
+        where id=#{id}
+    </update>
+
+    <update id="updateUsername">
+        update user
+        set username=#{username}
         where id=#{id}
     </update>
 

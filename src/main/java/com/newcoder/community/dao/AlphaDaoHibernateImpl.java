@@ -8,4 +8,9 @@ public class AlphaDaoHibernateImpl implements AlphaDao{
     public String select() {
         return "Hibernate";
     }
+
+    @Override
+    public String find() {
+        return null;
+    }
 }

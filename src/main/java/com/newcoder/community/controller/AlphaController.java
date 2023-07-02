@@ -1,5 +1,7 @@
 package com.newcoder.community.controller;
 
+import com.newcoder.community.service.AlphaService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -14,12 +16,23 @@ import java.util.*;
 @Controller
 @RequestMapping("/alpha")
 public class AlphaController {
+
+    @Autowired
+    private AlphaService alphaService;
+
     @RequestMapping("/hello")
     @ResponseBody
     public String sayHello(){
         return "Hello Spring boot";
     }
 
+
+    @RequestMapping("/data")
+    @ResponseBody
+    public String getData(){
+        return alphaService.find();
+    }
+    //演示一下原始底层的请求响应方式
     @RequestMapping("/http")
     public void http(HttpServletRequest request, HttpServletResponse response)  {
         //获取请求数据
@@ -31,29 +44,26 @@ public class AlphaController {
             String value = request.getHeader(name);
             System.out.println(name+":"+value);
         }
-
         System.out.println(request.getParameter("code"));
 
         //返回响应数据
         response.setContentType("text/html;charset=utf-8");
-        PrintWriter writer = null;
-        try {
-            writer = response.getWriter();
+        //java 7 新语法
+        try(PrintWriter writer = response.getWriter()) {
             writer.write("<h1>牛客网</h1>");
-
-
         } catch (IOException e) {
             e.printStackTrace();
-        }finally {
-            writer.close();
         }
 
     }
+//封装后的简便方式
 
     //GET请求
-    //  对于请求 /students?current=1&limit=20
+    //  对于请求 /students?current=1&limit=20 ： 假设有一个需求查询学生，当前是第一页，每页20个
+
     @RequestMapping(path = "/students",method = RequestMethod.GET)
     @ResponseBody
+    //使用@RequestParam注解，对用户比较友好
     public String getStudents(@RequestParam(name = "current",required = false ,defaultValue = "1") int current,
                               @RequestParam(name = "limit",required = false, defaultValue = "10") int limit){
         System.out.println(current);
@@ -62,15 +72,17 @@ public class AlphaController {
     }
 
 
-    //对于请求 /student/123   获取请求参数中 123
+    //对于请求 /student/123   通过studentID获取数据
     @RequestMapping(path = "/student/{id}",method = RequestMethod.GET)
     @ResponseBody
+    //通过@PathVariable注解 获取参数值
     public String getStudent(@PathVariable("id") int id){  //获取请求参数路径中的id，
         System.out.println(id);
         return "a student";
     }
 
     //处理 post 请求标签
+    //http://localhost:8080/community/html/student.html 不用添加static这级目录
     @RequestMapping(path = "/student", method = RequestMethod.POST)
     @ResponseBody
     public String saveStudent(String name , int age){ //表单中的请求参数，会映射到参数列表

@@ -27,6 +27,9 @@ public interface UserMapper {
     //7.
     int updatePassword(int id,String password );
 
+    //更新用户名
+    int updateUsername(int id, String username);
+
 
 
 }
