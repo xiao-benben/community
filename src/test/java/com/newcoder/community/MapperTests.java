@@ -56,6 +56,7 @@ public class MapperTests {
         System.out.println(rows);
     }
 
+    //修改用户名
     @Test
     public void updateUserByUsername(){
         int rows = userMapper.updateUsername(173,"zhang");
