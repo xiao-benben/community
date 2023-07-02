@@ -1,6 +1,7 @@
 package com.newcoder.community;
 
 import com.newcoder.community.config.AlphaConfig;
+import com.newcoder.community.controller.AlphaController;
 import com.newcoder.community.dao.AlphaDao;
 import com.newcoder.community.service.AlphaService;
 import org.junit.jupiter.api.Test;
@@ -32,6 +33,8 @@ class CommunityApplicationTests implements ApplicationContextAware {
 		System.out.println(applicationContext);
 		AlphaDao alphaDao = applicationContext.getBean(AlphaDao.class);
 		System.out.println(alphaDao.select());
+		AlphaController alphaController = applicationContext.getBean(AlphaController.class);
+		System.out.println(alphaController);
 	}
 	//测试一下Spring容器启动管理bean的过程
 	@Test
