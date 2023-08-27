@@ -62,12 +62,15 @@ public class MapperTests {
         int rows = userMapper.updateUsername(173,"zhang");
         System.out.println(rows);
     }
-
+    //社区首页  查询帖子
     @Test
     public  void testSelectPosts(){
         List<DiscussPost> list = discussPostMapper.selectDiscussPosts(0,0,10);
         for(DiscussPost post: list)
             System.out.println(post);
+        System.out.println("-----------------------查询帖子总数------------------");
+        int rows = discussPostMapper.selectDiscussPostRows(0);
+        System.out.println("total: "+rows);
 
         System.out.println("------------------------------------------------------");
     List<DiscussPost> list1 = discussPostMapper.selectDiscussPosts(149,0,10);

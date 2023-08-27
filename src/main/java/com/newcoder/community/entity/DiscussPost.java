@@ -1,12 +1,12 @@
 package com.newcoder.community.entity;
 
 import java.util.Date;
-
+//帖子表
 public class DiscussPost {
     private int id;
     private int userId;
     private String title;
-    private String content;
+    private String content;  //数据库的text类型对应string
     private int type;
     private int status;
     private Date createTime;
